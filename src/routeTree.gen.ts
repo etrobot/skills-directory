@@ -15,7 +15,11 @@ import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as DashboardSettingsImport } from './routes/dashboard/settings'
+import { Route as DashboardPromptsImport } from './routes/dashboard/prompts'
 import { Route as DashboardProductsImport } from './routes/dashboard/products'
+import { Route as DashboardHistoryImport } from './routes/dashboard/history'
+import { Route as DashboardFavoritesImport } from './routes/dashboard/favorites'
+import { Route as DashboardChatImport } from './routes/dashboard/chat'
 
 // Create/Update Routes
 
@@ -43,9 +47,33 @@ const DashboardSettingsRoute = DashboardSettingsImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
+const DashboardPromptsRoute = DashboardPromptsImport.update({
+  id: '/prompts',
+  path: '/prompts',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
 const DashboardProductsRoute = DashboardProductsImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardHistoryRoute = DashboardHistoryImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardFavoritesRoute = DashboardFavoritesImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardChatRoute = DashboardChatImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -67,11 +95,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard/chat': {
+      id: '/dashboard/chat'
+      path: '/chat'
+      fullPath: '/dashboard/chat'
+      preLoaderRoute: typeof DashboardChatImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/favorites': {
+      id: '/dashboard/favorites'
+      path: '/favorites'
+      fullPath: '/dashboard/favorites'
+      preLoaderRoute: typeof DashboardFavoritesImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/history': {
+      id: '/dashboard/history'
+      path: '/history'
+      fullPath: '/dashboard/history'
+      preLoaderRoute: typeof DashboardHistoryImport
+      parentRoute: typeof DashboardRouteImport
+    }
     '/dashboard/products': {
       id: '/dashboard/products'
       path: '/products'
       fullPath: '/dashboard/products'
       preLoaderRoute: typeof DashboardProductsImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/prompts': {
+      id: '/dashboard/prompts'
+      path: '/prompts'
+      fullPath: '/dashboard/prompts'
+      preLoaderRoute: typeof DashboardPromptsImport
       parentRoute: typeof DashboardRouteImport
     }
     '/dashboard/settings': {
@@ -94,13 +150,21 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface DashboardRouteRouteChildren {
+  DashboardChatRoute: typeof DashboardChatRoute
+  DashboardFavoritesRoute: typeof DashboardFavoritesRoute
+  DashboardHistoryRoute: typeof DashboardHistoryRoute
   DashboardProductsRoute: typeof DashboardProductsRoute
+  DashboardPromptsRoute: typeof DashboardPromptsRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardChatRoute: DashboardChatRoute,
+  DashboardFavoritesRoute: DashboardFavoritesRoute,
+  DashboardHistoryRoute: DashboardHistoryRoute,
   DashboardProductsRoute: DashboardProductsRoute,
+  DashboardPromptsRoute: DashboardPromptsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
@@ -112,14 +176,22 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/chat': typeof DashboardChatRoute
+  '/dashboard/favorites': typeof DashboardFavoritesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
   '/dashboard/products': typeof DashboardProductsRoute
+  '/dashboard/prompts': typeof DashboardPromptsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/chat': typeof DashboardChatRoute
+  '/dashboard/favorites': typeof DashboardFavoritesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
   '/dashboard/products': typeof DashboardProductsRoute
+  '/dashboard/prompts': typeof DashboardPromptsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard': typeof DashboardIndexRoute
 }
@@ -128,7 +200,11 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/chat': typeof DashboardChatRoute
+  '/dashboard/favorites': typeof DashboardFavoritesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
   '/dashboard/products': typeof DashboardProductsRoute
+  '/dashboard/prompts': typeof DashboardPromptsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -138,16 +214,32 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/dashboard/chat'
+    | '/dashboard/favorites'
+    | '/dashboard/history'
     | '/dashboard/products'
+    | '/dashboard/prompts'
     | '/dashboard/settings'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard/products' | '/dashboard/settings' | '/dashboard'
+  to:
+    | '/'
+    | '/dashboard/chat'
+    | '/dashboard/favorites'
+    | '/dashboard/history'
+    | '/dashboard/products'
+    | '/dashboard/prompts'
+    | '/dashboard/settings'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/dashboard/chat'
+    | '/dashboard/favorites'
+    | '/dashboard/history'
     | '/dashboard/products'
+    | '/dashboard/prompts'
     | '/dashboard/settings'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
@@ -183,13 +275,33 @@ export const routeTree = rootRoute
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
       "children": [
+        "/dashboard/chat",
+        "/dashboard/favorites",
+        "/dashboard/history",
         "/dashboard/products",
+        "/dashboard/prompts",
         "/dashboard/settings",
         "/dashboard/"
       ]
     },
+    "/dashboard/chat": {
+      "filePath": "dashboard/chat.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/favorites": {
+      "filePath": "dashboard/favorites.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/history": {
+      "filePath": "dashboard/history.tsx",
+      "parent": "/dashboard"
+    },
     "/dashboard/products": {
       "filePath": "dashboard/products.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/prompts": {
+      "filePath": "dashboard/prompts.tsx",
       "parent": "/dashboard"
     },
     "/dashboard/settings": {

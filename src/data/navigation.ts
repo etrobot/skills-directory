@@ -1,13 +1,9 @@
 import {
   LayoutDashboard,
-  Users,
-  Settings,
-  BarChart3,
-  FileText,
-  Package,
-  ShoppingCart,
-  Bell,
-  HelpCircle,
+  LayoutGrid,
+  Bookmark,
+  MessageCircle,
+  History,
 } from "lucide-react";
 
 export interface NavigationItem {
@@ -20,24 +16,24 @@ export interface NavigationItem {
 
 export const navigationItems: NavigationItem[] = [
   {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
+    title: "预设提示词广场",
+    href: "/dashboard/prompts",
+    icon: LayoutGrid,
   },
   {
-    title: "Products",
-    href: "/dashboard/products",
-    icon: Package,
+    title: "收藏",
+    href: "/dashboard/favorites",
+    icon: Bookmark,
   },
   {
-    title: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
+    title: "聊天",
+    href: "/dashboard/chat",
+    icon: MessageCircle,
   },
   {
-    title: "Login",
-    href: "/",
-    icon: HelpCircle,
+    title: "聊天记录",
+    href: "/dashboard/history",
+    icon: History,
   },
 ];
 
